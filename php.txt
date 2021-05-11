@@ -1,0 +1,4 @@
+PHP is a server side scripting language.
+PHP is a open source language and PHP is case-sensative.PHP is faster.
+PHP is platform independent.
+

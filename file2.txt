@@ -1,0 +1,7 @@
+this is first line.
+this is second line.
+
+cat
+
+this line is appended by program.
+this new line is appended by program.

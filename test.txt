@@ -1,0 +1,892 @@
+#! /bin/bash
+#while loop3
+while IFS= read -r line		#-r prevents backslash escape to be interpreted
+do
+	echo $line
+done < while3.sh
+
+#! /bin/bash
+numb1=5
+numb2=10
+numb3=0.2
+numb4=0.5
+#integer operation
+echo $(( numb1 + numb2 ))
+echo $(( numb1 - numb2 ))
+echo $(( numb1 * numb2 ))
+echo $(( numb1 / numb2 ))
+echo $(( numb1 % numb2 ))
+
+#integer operation with expr
+
+echo $(expr $numb1 + $numb2 )
+echo $(expr $numb1 - $numb2 )
+echo $(expr $numb1 + $numb2 )
+echo $(expr $numb1 \* $numb2 )	#backslash is necessary
+echo $(expr $numb1 % $numb2 )
+
+#decimal addition
+echo "$numb3 + $numb4" | bc
+echo "$numb3 - $numb4" | bc
+echo "$numb3 * $numb4" | bc
+echo "$numb3 / $numb4" | bc
+echo "$numb3 % $numb4" | bc
+echo "scale=2; $numb3/$numb4" | bc
+echo "scale=10;sqrt($numb1)" | bc -l
+echo "scale=10; $numb1^(1/3)" |bc -l
+
+# /bin/bash
+os=( 'ubuntu' 'windows' 'kali' )
+os[2]='mac'		#replaces 3rd string
+echo "${os[@]}"		#prints all strings
+echo "${os[0]}"		#prints 1st string
+echo "${!os[@]}"	#prints string numbers
+echo "${#os[@]}"	#prints length of string
+#new string
+unset
+string=dasgas
+echo "${string[@]}"
+
+#! /bin/bash
+echo "Enter names"
+read -a names					#-a is for array
+echo "Names : ${names[0]}, ${names[1]}"
+
+#default read takes to $REPLY
+echo "Enter name"
+read
+echo "Entered names is $REPLY"
+
+#masking to input
+read -p 'username:' user_var
+read -sp 'password:' pass_var		# -s mask input
+echo "username: $user_var"
+echo "password: $pass_var"		# but shown in this command
+
+
+#! /bin/bash
+#case expression in
+#pattern1)
+#	statements;;
+#pattern2)
+#	stattements;;
+#esac
+vehicle=$1
+case $vehicle in
+	"car")
+	echo "Rent of $vehicle is Rs 100.";;
+	"van")
+	echo "Rent of $vehicle is Rs 120.";;
+	"truck")
+	echo "rent of $vehicle is Rs 500.";;
+	*)						#wild card
+	echo "Unknown vehicle"
+esac
+#! /bin/bash
+echo " Enter any character "
+read value
+case $value in
+	[a-z])
+		echo "Entered $value is between a to z";;
+	[A-Z])
+		echo "Entered $value is between A to Z";;
+	[0-9])
+		echo "Entered $value is between 0 to 9";;
+	?)
+		echo "Entered $value is special character";;
+	*)
+		echo "$value is unknown input";;
+esac
+
+this is first line.
+this is second line.
+
+cat
+
+this line is appended by program.
+this new line is appended by program.
+#! /bin/bash
+#for loop
+#for variable in 1 2 3 4 5
+#do
+#	command1
+#	command2
+#	commandn
+#done
+
+for i in 1 2 3 4 5 6 7 8 9 10
+do
+	echo $i
+done
+
+#for i in {start..end..increment}
+#do
+#	commandN
+#done
+
+echo "new loop"
+for i in {0..10..1}
+do
+	echo $i
+done
+
+#for (( Exp1; Exp2; Exp3 ))
+#do
+#	command1
+#	command2
+#	commandN
+#done
+
+echo "new loop"
+for (( i=0; i<=10; i++ ))
+do
+	echo $i
+done
+#! /bin/bash
+for command in ls pwd date
+do
+	echo " --------$command------------"
+	$command
+done
+#! /bin/bash
+
+for item in *			# * is wild card for current working directory
+do
+	if [ -f $item ]
+	then
+		echo "--------------- $item--------------------"
+		cat $item
+		cat $item >> test.txt
+	fi
+done
+
+#! /bin/bash
+echo -e "Enter your HSC percentage:\c"
+read hsc
+echo -e "Enter your CET score:\c"
+read cet
+if [ $hsc -ge 50 ] && [ $cet -ge 100 ]
+#if [[ $hsc -ge 50 && $cet -ge 100 ]]
+#if [ $hsc -ge 50 -a $cet -ge 100 ]	I think this will take min space
+#confirm with pankaj.
+then 
+	echo "You are eligible for medical"
+elif [ $hsc -ge 45 ] && [ $cet -ge 90 ]
+	echo "You are not eligible for medical"
+then
+	echo "You are eligible for engineering"
+else
+	echo "You are not eligible for engineering"
+fi
+
+
+
+
+	
+#! /bin/bash
+
+echo -e "Enter file name\c"
+read file_name
+if [ -f $file_name ]
+then
+	echo "$file_name found"
+	echo "Enter the text to file & press enter then ctrl+c to exit."
+	cat >> $file_name
+else
+	echo "$file_name not found"
+fi
+
+#! /bin/bash
+read -p 'your age in years:' age
+if [ $age == 18 ] || [ $age -gt 18 ]
+then
+	echo "You are eligible for marriage"
+else
+	echo "You are not eligible for marriage"
+fi
+#! /bin/bash
+echo "Enter the number"
+read numb
+if [ $numb -lt 10 ]
+then
+	echo " $numb is less than 10 "
+else
+	echo " $numb is greater than 10 "
+fi
+name=mark
+echo "the name is $name"
+#! /bin/bash
+#until loop is opposite of while loop
+echo -e " Enter the number less than 10:\c"
+read numb
+until [ $numb -gt 10 ]
+do
+	echo "$numb"
+	numb=$(( numb+1 ))
+done
+#! /bin/bash
+$BASH		#name of bash
+$BASH_VERSION	#bash version
+$HOME 		#home directory
+$PWD		#current directory
+name=Mark
+echo "The name is $name"
+
+#! /bin/bash
+name=mark
+echo " The name is $name "
+
+#read
+echo "Enter the name"
+read name
+echo "Entered name is $name"
+
+#same line prompt
+read -p 'username :' user_var
+echo " username :$user_var"
+
+#! /bin/bash
+#while loop
+while read p
+do 
+	echo $p
+done < while1.sh
+
+#! /bin/bash
+#while loop2
+cat while2.sh | while read p
+do
+	echo $p
+done
+
+#! /bin/bash
+#while loop3
+while IFS= read -r line		#-r prevents backslash escape to be interpreted
+do
+	echo $line
+done < while3.sh
+
+#! /bin/bash
+numb1=5
+numb2=10
+numb3=0.2
+numb4=0.5
+#integer operation
+echo $(( numb1 + numb2 ))
+echo $(( numb1 - numb2 ))
+echo $(( numb1 * numb2 ))
+echo $(( numb1 / numb2 ))
+echo $(( numb1 % numb2 ))
+
+#integer operation with expr
+
+echo $(expr $numb1 + $numb2 )
+echo $(expr $numb1 - $numb2 )
+echo $(expr $numb1 + $numb2 )
+echo $(expr $numb1 \* $numb2 )	#backslash is necessary
+echo $(expr $numb1 % $numb2 )
+
+#decimal addition
+echo "$numb3 + $numb4" | bc
+echo "$numb3 - $numb4" | bc
+echo "$numb3 * $numb4" | bc
+echo "$numb3 / $numb4" | bc
+echo "$numb3 % $numb4" | bc
+echo "scale=2; $numb3/$numb4" | bc
+echo "scale=10;sqrt($numb1)" | bc -l
+echo "scale=10; $numb1^(1/3)" |bc -l
+
+# /bin/bash
+os=( 'ubuntu' 'windows' 'kali' )
+os[2]='mac'		#replaces 3rd string
+echo "${os[@]}"		#prints all strings
+echo "${os[0]}"		#prints 1st string
+echo "${!os[@]}"	#prints string numbers
+echo "${#os[@]}"	#prints length of string
+#new string
+unset
+string=dasgas
+echo "${string[@]}"
+
+#! /bin/bash
+echo "Enter names"
+read -a names					#-a is for array
+echo "Names : ${names[0]}, ${names[1]}"
+
+#default read takes to $REPLY
+echo "Enter name"
+read
+echo "Entered names is $REPLY"
+
+#masking to input
+read -p 'username:' user_var
+read -sp 'password:' pass_var		# -s mask input
+echo "username: $user_var"
+echo "password: $pass_var"		# but shown in this command
+
+
+#! /bin/bash
+#case expression in
+#pattern1)
+#	statements;;
+#pattern2)
+#	stattements;;
+#esac
+vehicle=$1
+case $vehicle in
+	"car")
+	echo "Rent of $vehicle is Rs 100.";;
+	"van")
+	echo "Rent of $vehicle is Rs 120.";;
+	"truck")
+	echo "rent of $vehicle is Rs 500.";;
+	*)						#wild card
+	echo "Unknown vehicle"
+esac
+#! /bin/bash
+echo " Enter any character "
+read value
+case $value in
+	[a-z])
+		echo "Entered $value is between a to z";;
+	[A-Z])
+		echo "Entered $value is between A to Z";;
+	[0-9])
+		echo "Entered $value is between 0 to 9";;
+	?)
+		echo "Entered $value is special character";;
+	*)
+		echo "$value is unknown input";;
+esac
+
+this is first line.
+this is second line.
+
+cat
+
+this line is appended by program.
+this new line is appended by program.
+#! /bin/bash
+#for loop
+#for variable in 1 2 3 4 5
+#do
+#	command1
+#	command2
+#	commandn
+#done
+
+for i in 1 2 3 4 5 6 7 8 9 10
+do
+	echo $i
+done
+
+#for i in {start..end..increment}
+#do
+#	commandN
+#done
+
+echo "new loop"
+for i in {0..10..1}
+do
+	echo $i
+done
+
+#for (( Exp1; Exp2; Exp3 ))
+#do
+#	command1
+#	command2
+#	commandN
+#done
+
+echo "new loop"
+for (( i=0; i<=10; i++ ))
+do
+	echo $i
+done
+#! /bin/bash
+for command in ls pwd date
+do
+	echo " --------$command------------"
+	$command
+done
+#! /bin/bash
+
+for item in *			# * is wild card for current working directory
+do
+	if [ -f $item ]
+	then
+		echo "--------------- $item--------------------"
+		cat $item >> test.txt
+	fi
+done
+
+#! /bin/bash
+echo -e "Enter your HSC percentage:\c"
+read hsc
+echo -e "Enter your CET score:\c"
+read cet
+if [ $hsc -ge 50 ] && [ $cet -ge 100 ]
+#if [[ $hsc -ge 50 && $cet -ge 100 ]]
+#if [ $hsc -ge 50 -a $cet -ge 100 ]	I think this will take min space
+#confirm with pankaj.
+then 
+	echo "You are eligible for medical"
+elif [ $hsc -ge 45 ] && [ $cet -ge 90 ]
+	echo "You are not eligible for medical"
+then
+	echo "You are eligible for engineering"
+else
+	echo "You are not eligible for engineering"
+fi
+
+
+
+
+	
+#! /bin/bash
+
+echo -e "Enter file name\c"
+read file_name
+if [ -f $file_name ]
+then
+	echo "$file_name found"
+	echo "Enter the text to file & press enter then ctrl+c to exit."
+	cat >> $file_name
+else
+	echo "$file_name not found"
+fi
+
+#! /bin/bash
+read -p 'your age in years:' age
+if [ $age == 18 ] || [ $age -gt 18 ]
+then
+	echo "You are eligible for marriage"
+else
+	echo "You are not eligible for marriage"
+fi
+#! /bin/bash
+echo "Enter the number"
+read numb
+if [ $numb -lt 10 ]
+then
+	echo " $numb is less than 10 "
+else
+	echo " $numb is greater than 10 "
+fi
+name=mark
+echo "the name is $name"
+#! /bin/bash
+#until loop is opposite of while loop
+echo -e " Enter the number less than 10:\c"
+read numb
+until [ $numb -gt 10 ]
+do
+	echo "$numb"
+	numb=$(( numb+1 ))
+done
+#! /bin/bash
+$BASH		#name of bash
+$BASH_VERSION	#bash version
+$HOME 		#home directory
+$PWD		#current directory
+name=Mark
+echo "The name is $name"
+
+#! /bin/bash
+name=mark
+echo " The name is $name "
+
+#read
+echo "Enter the name"
+read name
+echo "Entered name is $name"
+
+#same line prompt
+read -p 'username :' user_var
+echo " username :$user_var"
+
+#! /bin/bash
+#while loop
+while read p
+do 
+	echo $p
+done < while1.sh
+
+#! /bin/bash
+#while loop2
+cat while2.sh | while read p
+do
+	echo $p
+done
+
+#! /bin/bash
+#while loop3
+while IFS= read -r line		#-r prevents backslash escape to be interpreted
+do
+	echo $line
+done < while3.sh
+
+#! /bin/bash
+numb1=5
+numb2=10
+numb3=0.2
+numb4=0.5
+#integer operation
+echo $(( numb1 + numb2 ))
+echo $(( numb1 - numb2 ))
+echo $(( numb1 * numb2 ))
+echo $(( numb1 / numb2 ))
+echo $(( numb1 % numb2 ))
+
+#integer operation with expr
+
+echo $(expr $numb1 + $numb2 )
+echo $(expr $numb1 - $numb2 )
+echo $(expr $numb1 + $numb2 )
+echo $(expr $numb1 \* $numb2 )	#backslash is necessary
+echo $(expr $numb1 % $numb2 )
+
+#decimal addition
+echo "$numb3 + $numb4" | bc
+echo "$numb3 - $numb4" | bc
+echo "$numb3 * $numb4" | bc
+echo "$numb3 / $numb4" | bc
+echo "$numb3 % $numb4" | bc
+echo "scale=2; $numb3/$numb4" | bc
+echo "scale=10;sqrt($numb1)" | bc -l
+echo "scale=10; $numb1^(1/3)" |bc -l
+
+# /bin/bash
+os=( 'ubuntu' 'windows' 'kali' )
+os[2]='mac'		#replaces 3rd string
+echo "${os[@]}"		#prints all strings
+echo "${os[0]}"		#prints 1st string
+echo "${!os[@]}"	#prints string numbers
+echo "${#os[@]}"	#prints length of string
+#new string
+unset
+string=dasgas
+echo "${string[@]}"
+
+#! /bin/bash
+echo "Enter names"
+read -a names					#-a is for array
+echo "Names : ${names[0]}, ${names[1]}"
+
+#default read takes to $REPLY
+echo "Enter name"
+read
+echo "Entered names is $REPLY"
+
+#masking to input
+read -p 'username:' user_var
+read -sp 'password:' pass_var		# -s mask input
+echo "username: $user_var"
+echo "password: $pass_var"		# but shown in this command
+
+
+#! /bin/bash
+#case expression in
+#pattern1)
+#	statements;;
+#pattern2)
+#	stattements;;
+#esac
+vehicle=$1
+case $vehicle in
+	"car")
+	echo "Rent of $vehicle is Rs 100.";;
+	"van")
+	echo "Rent of $vehicle is Rs 120.";;
+	"truck")
+	echo "rent of $vehicle is Rs 500.";;
+	*)						#wild card
+	echo "Unknown vehicle"
+esac
+#! /bin/bash
+echo " Enter any character "
+read value
+case $value in
+	[a-z])
+		echo "Entered $value is between a to z";;
+	[A-Z])
+		echo "Entered $value is between A to Z";;
+	[0-9])
+		echo "Entered $value is between 0 to 9";;
+	?)
+		echo "Entered $value is special character";;
+	*)
+		echo "$value is unknown input";;
+esac
+
+#! /bin/bash
+for (( i=1; i<=10; i++ ))
+do
+	if [ $i -gt 5 ]
+	then
+		break
+	fi
+	echo $i
+done
+
+echo " new loop"
+for (( j=1; j<=10; j++ ))
+do
+	if [ $j -eq 3 -o $j -eq 6 ]
+	then
+		continue
+	else
+	echo $j
+	fi
+done
+
+        
+this is first line.
+this is second line.
+
+cat
+
+this line is appended by program.
+this new line is appended by program.
+#! /bin/bash
+#for loop
+#for variable in 1 2 3 4 5
+#do
+#	command1
+#	command2
+#	commandn
+#done
+
+for i in 1 2 3 4 5 6 7 8 9 10
+do
+	echo $i
+done
+
+#for i in {start..end..increment}
+#do
+#	commandN
+#done
+
+echo "new loop"
+for i in {0..10..1}
+do
+	echo $i
+done
+
+#for (( Exp1; Exp2; Exp3 ))
+#do
+#	command1
+#	command2
+#	commandN
+#done
+
+echo "new loop"
+for (( i=0; i<=10; i++ ))
+do
+	echo $i
+done
+#! /bin/bash
+for command in ls pwd date
+do
+	echo " --------$command------------"
+	$command
+done
+#! /bin/bash
+
+for item in *			# * is wild card for current working directory
+do
+	if [ -f $item ]
+	then
+		echo "--------------- $item--------------------"
+		cat $item >> test.txt
+	fi
+done
+
+#! /bin/bash
+#function
+function Hello (){
+	echo "hello"
+}
+quit (){
+	exit
+}
+Hello
+echo "foo"
+quit
+#! /bin/bash
+function print (){
+	echo $1
+}
+quit (){
+	exit
+}
+print Hello
+print World
+print Again
+
+echo new function
+
+catch (){
+	echo $0 $1 $3		#note numbers in declaration
+}				#0 calls name of file
+catch hello world again		#it is calling only numbers given in declaration 	
+echo foo
+quit
+#! /bin/bash
+function print(){
+	name=$1
+	echo " the name is $name"
+}
+name=Tom
+echo " the name is $name:Before"
+print max
+echo " the name is $name:After"
+
+unset
+echo "--------------- new function with use of syntax 'local'------------- "
+function catch(){
+	local name=$1
+	echo " the name is $name"
+}
+ name=Tom
+echo " the name is $name:Before"
+catch max
+echo " the name is $name:After"
+
+echo "-------- new function with use of syntax 'local' two times-----------"
+unset
+function patch(){
+        local name=$1
+        echo " the name is $name"
+}
+local name=Tom
+echo " the name is $name:Before"
+patch max
+echo " the name is $name:After"
+
+#conclusion-variables in shell script are by default GLOBAL unless and untill specifically made local & local can be used only in function.
+#! /bin/bash
+echo -e "Enter your HSC percentage:\c"
+read hsc
+echo -e "Enter your CET score:\c"
+read cet
+if [ $hsc -ge 50 ] && [ $cet -ge 100 ]
+#if [[ $hsc -ge 50 && $cet -ge 100 ]]
+#if [ $hsc -ge 50 -a $cet -ge 100 ]	I think this will take min space
+#confirm with pankaj.
+then 
+	echo "You are eligible for medical"
+elif [ $hsc -ge 45 ] && [ $cet -ge 90 ]
+	echo "You are not eligible for medical"
+then
+	echo "You are eligible for engineering"
+else
+	echo "You are not eligible for engineering"
+fi
+
+
+
+
+	
+#! /bin/bash
+
+echo -e "Enter file name\c"
+read file_name
+if [ -f $file_name ]
+then
+	echo "$file_name found"
+	echo "Enter the text to file & press enter then ctrl+c to exit."
+	cat >> $file_name
+else
+	echo "$file_name not found"
+fi
+
+#! /bin/bash
+read -p 'your age in years:' age
+if [ $age == 18 ] || [ $age -gt 18 ]
+then
+	echo "You are eligible for marriage"
+else
+	echo "You are not eligible for marriage"
+fi
+#! /bin/bash
+echo "Enter the number"
+read numb
+if [ $numb -lt 10 ]
+then
+	echo " $numb is less than 10 "
+else
+	echo " $numb is greater than 10 "
+fi
+name=mark
+echo "the name is $name"
+#! /bin/bash
+#select varName in list
+#do
+#	commandN
+#done
+
+select name in onkya pankya sandy
+do
+	case $name in
+		pankya )
+			echo " $name is computer engineer";;
+		onkya)
+			echo " $name is mechanical engineer";;
+		sandy) 
+			echo " $name is mechanical engineer";;
+	esac
+done
+#! /bin/bash
+#until loop is opposite of while loop
+echo -e " Enter the number less than 10:\c"
+read numb
+until [ $numb -gt 10 ]
+do
+	echo "$numb"
+	numb=$(( numb+1 ))
+done
+#! /bin/bash
+$BASH		#name of bash
+$BASH_VERSION	#bash version
+$HOME 		#home directory
+$PWD		#current directory
+name=Mark
+echo "The name is $name"
+
+#! /bin/bash
+name=mark
+echo " The name is $name "
+
+#read
+echo "Enter the name"
+read name
+echo "Entered name is $name"
+
+#same line prompt
+read -p 'username :' user_var
+echo " username :$user_var"
+
+#! /bin/bash
+#while loop
+while read p
+do 
+	echo $p
+done < while1.sh
+
+#! /bin/bash
+#while loop2
+cat while2.sh | while read p
+do
+	echo $p
+done
+
+#! /bin/bash
+#while loop3
+while IFS= read -r line		#-r prevents backslash escape to be interpreted
+do
+	echo $line
+done < while3.sh
+
+i have appended file now.
+
